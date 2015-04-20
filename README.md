@@ -1,5 +1,7 @@
 # Working todo example with [ReactJS](http://facebook.github.io/react/), [FlUxxor](http://fluxxor.com/), and [TypeScript](http://www.typescriptlang.org/). 
 
+[![wercker status](https://app.wercker.com/status/727c98983767934240f834a128032e2c/m "wercker status")](https://app.wercker.com/project/bykey/727c98983767934240f834a128032e2c)
+
 It also uses [hapi](http://hapijs.com/) as the server compnent and [oboe](http://oboejs.com/) as the XHR library.
 
 ## Install
