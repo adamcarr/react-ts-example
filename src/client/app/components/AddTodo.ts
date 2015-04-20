@@ -3,7 +3,6 @@
 import React = require('react');
 var Fluxxor = require('fluxxor');
 
-
 // Fluxxor.FluxMixin doesn't play well with React.Component class inheritance. Still looking into this.
 var AddTodo = React.createClass({
     mixins: [
