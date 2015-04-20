@@ -11,8 +11,5 @@ build:
         code: |
           sudo npm install -g bower
           bower install
-    - script:
-        name: test-compile
-        code: |
-          sudo npm install -g grunt
-          grunt build
+    - grunt:
+        tasks: build
