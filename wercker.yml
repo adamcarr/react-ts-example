@@ -6,8 +6,11 @@ build:
   steps:
     # A step that executes `npm install` command
     - npm-install
-    - bower-install
-    # A step that executes `npm test` command
+    - script:
+        name: install bower
+        code: |
+          sudo npm install -g bower
+          bower install
     - script:
         name: test-compile
         code: |
