@@ -1,0 +1,38 @@
+{
+  "name": "react-ts-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist",
+    "buildServer": "grunt ts",
+    "buildClient": "find src/client -name \"*.ts\" | xargs jsx-tsc --module CommonJS --outDir dist/client/app",
+    "prebuild": "npm run clean",
+    "build": "npm run buildServer && npm run buildClient && cp src/client/index.html dist/client/",
+    "bundle": "browserify -t reactify dist/client/app/app.js -o dist/client/bundle.js",
+    "prebundle": "npm run build",
+    "prestart": "npm run bundle",
+    "start": "cd dist/client/ && python -m SimpleHTTPServer 8100"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^9.0.8",
+    "grunt": "^0.4.5",
+    "grunt-ts": "^4.0.1",
+    "less": "^2.5.0",
+    "load-grunt-tasks": "^3.1.0",
+    "reactify": "^1.1.0"
+  },
+  "dependencies": {
+    "fluxxor": "^1.5.3",
+    "hapi": "^8.4.0",
+    "joi": "^6.2.0",
+    "lodash": "^3.7.0",
+    "node-uuid": "^1.4.3",
+    "oboe": "^2.1.1",
+    "react": "^0.13.2",
+    "react-router": "^0.13.2"
+  }
+}
