@@ -1,0 +1,14 @@
+box: wercker/nodejs
+# Build definition
+# Build definition
+build:
+  # The steps that will be executed on build
+  steps:
+    # A step that executes `npm install` command
+    - npm-install
+    - bower-install
+    # A step that executes `npm test` command
+    - script:
+        name: test-compile
+        code: |
+          grunt build

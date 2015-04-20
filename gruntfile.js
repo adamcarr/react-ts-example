@@ -140,5 +140,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['clean', 'ts:server', 'exec:client_typescript', 'browserify:dev', 'less', 'copy:html', 'hapi', 'connect:dist', 'watch']);
+    grunt.registerTask('default', ['build', 'hapi', 'connect:dist', 'watch']);
+    grunt.registerTask('build', ['clean', 'ts:server', 'exec:client_typescript', 'browserify:dev', 'less', 'copy:html']);
 };
