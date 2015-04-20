@@ -7,7 +7,7 @@ var Router = require("react-router"),
 import Home = require('./components/Home');
 import Page2 = require('./components/Page2');
 import Root = require('./components/Root');
-import TodoList = require('./components/TodoList');
+import TodoList = require('./components/todos/TodoList');
 
 var routes = (
     <Route handler={Root} name= "home" path= "/" >

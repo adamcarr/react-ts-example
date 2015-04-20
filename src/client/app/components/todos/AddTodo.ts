@@ -1,4 +1,4 @@
-/// <reference path="../../../../typings/tsd.d.ts" />
+/// <reference path="../../../../../typings/tsd.d.ts" />
 
 import React = require('react');
 var Fluxxor = require('fluxxor');
@@ -30,9 +30,11 @@ var AddTodo = React.createClass({
 	render: function() {
 	    var text = this.state.text;
 	    return <any>(
-	    	<div>
-	    		<input type="text" value={text} onChange={this.handleChange} />
-	    		<button onClick={this.handleSave}>Save Todo</button>
+	    	<div className="todo-add">
+    			<input className="todo-add-text" type="text" value={text} onChange={this.handleChange} placeholder="add todo text here" />
+	    		<span className="todo-add-button">
+	    			<button className="btn btn-primary" onClick={this.handleSave}>Save Todo</button>
+	    		</span>
 	    	</div>
     	);
 	}

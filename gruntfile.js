@@ -27,7 +27,7 @@ module.exports = function (grunt) {
             },
             html: {
                 files: ['src/client/index.html'],
-                task: ['copy:html']
+                tasks: ['copy:html']
             },
             hapi: {
                 files: ['dist/server/**/*.js'],
@@ -35,6 +35,10 @@ module.exports = function (grunt) {
                 options: {
                     spawn: false
                 }
+            },
+            less: {
+                files: ['src/client/**/*.less'],
+                tasks: ['less']
             }
         },
 
@@ -81,7 +85,7 @@ module.exports = function (grunt) {
 
         exec: {
             client_typescript: {
-                cmd: 'find src/client -name \"*.ts\" | xargs ./node_modules/.bin/jsx-tsc --module CommonJS --outDir dist/client/app'
+                cmd: './node_modules/.bin/jsx-tsc --module CommonJS --outDir dist/client/app src/client/app/app.ts'
             }
         },
 
@@ -94,6 +98,14 @@ module.exports = function (grunt) {
                 files: [
                     {expand: true, flatten: true, cwd: 'src/client/', src: ['index.html'], dest: 'dist/client/', filter: 'isFile'}
                 ]
+            }
+        },
+
+        less: {
+            client: {
+                files: {
+                    "dist/client/main.css": "src/client/main.less"
+                }
             }
         },
 
@@ -110,6 +122,8 @@ module.exports = function (grunt) {
         connect: {
             dist: {
                 options: {
+                    open: true,
+                    livereload: watchPort,
                     protocol: 'http',
                     port: 9000,
                     middleware: function (connect, options) {
@@ -126,5 +140,5 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['clean', 'ts:server', 'exec:client_typescript', 'browserify:dev', 'copy:html', 'hapi', 'connect:dist', 'watch']);
+    grunt.registerTask('default', ['clean', 'ts:server', 'exec:client_typescript', 'browserify:dev', 'less', 'copy:html', 'hapi', 'connect:dist', 'watch']);
 };

@@ -4,7 +4,7 @@ It also uses [hapi](http://hapijs.com/) as the server compnent and [oboe](http:/
 
 ## Install
 
-Just clone this repository. Then run `npm install`.
+Just clone this repository. Then run `npm install` and `bower install`.
 
 ## Build and Run
 

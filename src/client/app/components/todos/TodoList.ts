@@ -1,4 +1,4 @@
-/// <reference path="../../../../typings/tsd.d.ts" />
+/// <reference path="../../../../../typings/tsd.d.ts" />
 
 import React = require('react');
 import AddTodo = require('./AddTodo');
@@ -13,9 +13,10 @@ var TodoList = React.createClass({
 
     render: function() {
         return <any>(
-            <div>
-                <h3>Todos</h3>
-                <ul>{this.state.todos.map(this.renderTodoLink)}</ul>
+            <div className="todos">
+                <h2>Todos</h2>
+                <hr />
+                <div className="todo-list">{this.state.todos.map(this.renderTodoLink)}</div>
                 <hr/>
                 <AddTodo />
             </div>
@@ -24,10 +25,12 @@ var TodoList = React.createClass({
 
     renderTodoLink: function(todo) {
         return <any>(
-            <label style={{display:"block"}} key={todo.id}>
-                <input type="checkbox" checked={todo.isComplete} onChange={this.toggleComplete.bind(this, todo.id)} />
-                {todo.text}
-            </label>
+            <div className="todo-item" key={todo.id}>
+                <label>
+                    <input type="checkbox" checked={todo.isComplete} onChange={this.toggleComplete.bind(this, todo.id)} />
+                    {todo.text}
+                </label>
+            </div>
         );
     },
 
