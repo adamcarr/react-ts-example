@@ -14,4 +14,5 @@ build:
     - script:
         name: test-compile
         code: |
+          sudo npm install -g grunt
           grunt build
