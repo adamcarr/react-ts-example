@@ -14,7 +14,7 @@ var TodoList = React.createClass({
     render: function() {
         return <any>(
             <div>
-                <h1>Todos</h1>
+                <h3>Todos</h3>
                 <ul>{this.state.todos.map(this.renderTodoLink)}</ul>
                 <hr/>
                 <AddTodo />

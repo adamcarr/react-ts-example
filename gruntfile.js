@@ -1,9 +1,11 @@
-module.exports = function (grunt) {
-    require('load-grunt-tasks')(grunt, {
-        pattern: ['grunt-*', '!grunt-template-jasmine-requirejs', '!grunt-connect-pushstate'] // do not load grunt-template-jasmine-requirejs by default
-    });
+var path = require('path');
 
-    var watchPort = 35730;
+module.exports = function (grunt) {
+    require('load-grunt-tasks')(grunt, {});
+
+    var modRewrite = require('connect-modrewrite');
+
+    var watchPort = 35729;
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -15,21 +17,24 @@ module.exports = function (grunt) {
                     port: watchPort
                 }
             },
-            typescript: {
-                files: ['src/**/*.ts'],
-                tasks: ['ts:build']
+            client_typescript: {
+                files: ['src/client/**/*.ts'],
+                tasks: ['exec:client_typescript', 'browserify:dev']
             },
-            ejs: {
-                files: ['./*.ejs'],
-                tasks: ['ejs:watch']
+            server_typescript: {
+                files: ['src/server/**/*.ts'],
+                tasks: ['ts:server']
             },
             html: {
-                files: ['src/**/*.html'],
-                tasks: ['copy:templates']
+                files: ['src/client/index.html'],
+                task: ['copy:html']
             },
-            less: {
-                files: ['src/**/*.less'],
-                tasks: ['less']
+            hapi: {
+                files: ['dist/server/**/*.js'],
+                tasks: ['hapi:custom_options'],
+                options: {
+                    spawn: false
+                }
             }
         },
 
@@ -49,8 +54,77 @@ module.exports = function (grunt) {
                     fast: 'never'
                 }
             }
+        },
+
+
+        browserify: {
+            dev: {
+                options: {
+                    debug: true,
+                    transform: ['reactify']
+                },
+                files: {
+                    'dist/client/bundle.js': 'dist/client/app/app.js'
+                }
+            },
+            build: {
+                options: {
+                    debug: false,
+                    transform: ['reactify']
+                },
+                files: {
+                    'dist/client/bundle.js': 'dist/client/app/app.js'
+                }
+            }
+        },
+
+
+        exec: {
+            client_typescript: {
+                cmd: 'find src/client -name \"*.ts\" | xargs ./node_modules/.bin/jsx-tsc --module CommonJS --outDir dist/client/app'
+            }
+        },
+
+
+        clean: ['dist/'],
+
+
+        copy: {
+            html: {
+                files: [
+                    {expand: true, flatten: true, cwd: 'src/client/', src: ['index.html'], dest: 'dist/client/', filter: 'isFile'}
+                ]
+            }
+        },
+
+
+        hapi: {
+            custom_options: {
+                options: {
+                    server: path.resolve('./dist/server/server')
+                }
+            }
+        },
+
+
+        connect: {
+            dist: {
+                options: {
+                    protocol: 'http',
+                    port: 9000,
+                    middleware: function (connect, options) {
+                        return [
+                            // Rewrite requests to root so they may be handled by router
+                            modRewrite(['^[^\\.]*$ /index.html [L]']),
+
+                            // Serve static files
+                            connect.static('dist/client/')
+                        ];
+                    }
+                }
+            }
         }
     });
 
-
+    grunt.registerTask('default', ['clean', 'ts:server', 'exec:client_typescript', 'browserify:dev', 'copy:html', 'hapi', 'connect:dist', 'watch']);
 };

@@ -5,22 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf dist",
-    "buildServer": "grunt ts",
-    "buildClient": "find src/client -name \"*.ts\" | xargs jsx-tsc --module CommonJS --outDir dist/client/app",
-    "prebuild": "npm run clean",
-    "build": "npm run buildServer && npm run buildClient && cp src/client/index.html dist/client/",
-    "bundle": "browserify -t reactify dist/client/app/app.js -o dist/client/bundle.js",
-    "prebundle": "npm run build",
-    "prestart": "npm run bundle",
-    "start": "cd dist/client/ && python -m SimpleHTTPServer 8100"
+    "start": "grunt"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^9.0.8",
+    "connect-modrewrite": "^0.7.11",
     "grunt": "^0.4.5",
+    "grunt-browserify": "^3.7.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-exec": "^0.4.6",
+    "grunt-hapi": "^0.9.1",
     "grunt-ts": "^4.0.1",
+    "jsx-typescript": "^1.5.0-alpha.5",
     "less": "^2.5.0",
     "load-grunt-tasks": "^3.1.0",
     "reactify": "^1.1.0"

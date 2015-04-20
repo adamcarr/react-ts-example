@@ -16,9 +16,4 @@ server.connection({
 
 server.route(todoRoutes);
 
-server.start((err) => {
-    if (err) {
-        return console.log(err);
-    }
-    console.log('Server started at %s', server.info.uri);
-});
+export = server;

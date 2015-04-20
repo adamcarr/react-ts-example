@@ -4,7 +4,7 @@ import React = require('react');
 
 class Home extends React.Component<any, any> {
 	render() {
-		return (<div>Hello world</div>);
+		return (<div>Hello world!!!!</div>);
 	}
 }
 
