@@ -6,13 +6,16 @@ var Router = require("react-router"),
     DefaultRoute = Router.DefaultRoute;
 import Home = require('./components/Home');
 import Page2 = require('./components/Page2');
+import Page2SubPage = require('./components/Page2SubPage');
 import Root = require('./components/Root');
 import TodoList = require('./components/todos/TodoList');
 
 var routes = (
     <Route handler={Root} name= "home" path= "/" >
-        <Route handler={Page2} name="page2" path="/page2" />
-        <Route handler={TodoList} name="todos" path="/todos" />
+        <Route handler={Page2} name="page2">
+        	<Route handler={Page2SubPage} name="page2subpage" />
+        </Route>
+        <Route handler={TodoList} name="todos" />
         <DefaultRoute handler={Home} />
     </Route>
 );

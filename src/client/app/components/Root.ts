@@ -11,7 +11,7 @@ class Root extends React.Component<any, any> {
 			<div>
 				<RouteHandler {...this.props} />
 				<hr/>
-				<Link to="home">Home</Link> | <Link to="page2">Page 2</Link> | <Link to="todos">Todos</Link>
+				<Link to="home">Home</Link> | [<Link to="page2">Page 2</Link> | <Link to="page2subpage">Page 2 Sub Page</Link>] | <Link to="todos">Todos</Link>
 			</div>);
 	}
 }
